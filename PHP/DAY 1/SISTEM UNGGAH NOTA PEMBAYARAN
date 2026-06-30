@@ -1,0 +1,41 @@
+<?php
+echo "<h3>--- SISTEM UNGGAH NOTA PEMBAYARAN ---</h3>";
+
+$pesan_upload = " ";
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_FILES['nota_gambar'])) {
+    $file_nama = $_FILES['nota_gambar']['name'];
+    $file_tipe = $_FILES['nota_gambar']['type'];
+    $file_tmp = $_FILES['nota_gambar']['tmp_name'];
+    $file_error = $_FILES['nota_gambar']['error'];
+    $file_ukuran = $_FILES['nota_gambar']['size'];
+
+    if ($file_error === UPLOAD_ERR_OK){
+        $folder_tujuan = "uploads/";
+        if(!is_dir($folder_tujuan)){
+            mkdir($folder_tujuan, 0777, true);
+        }
+
+        $path_lengkap = $folder_tujuan . basename($file_nama);
+        if (move_uploaded_file($file_tmp, $path_lengkap)){
+            $pesan_upload = "<strong style='color:green;'>[SUKSES] File " . htmlspecialchars($file_nama) . "berhasil diunggah permanen ke server!.</strong>";
+        } else {
+            $pesan_upload = "<strong style='color:red;'>[EROR] Gagal memindahkan file dari direktori sementara server.</strong>";
+        }
+
+    } else {
+        $pesan_upload = "<strong style='color:red;'>[ALERT] Terjadi kesalahan sistem. saat proses upload: Kode " .$file_error. "</strong>";
+    }
+    
+}
+?>
+
+<?php if (!empty ($pesan_upload)) echo "<p>$pesan_upload</p>"; ?>
+<form action = "" method="POST" enctype="multipart/form-data" style="background: #f9f9f9; padding: 15px; border:1px solid #e0e0e0; max-width: 450px;">
+    <label>Pilih file nota (format .jpg / .png):</label><br>
+    <input type="file" name="nota_gambar" required><br><br>
+
+    <button type="submit" style="background: #1565c0; color: white; padding: 8px 15px; border: none; cursor: pointer;">
+        Unggah Sekarang
+        </button>
+</form>
