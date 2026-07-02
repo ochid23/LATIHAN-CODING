@@ -1,0 +1,33 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class layanandigital {
+	public:
+		string nama_paket;
+		int harga;
+	
+	layanandigital(string nama, int harga_layanan){
+		nama_paket = nama;
+		harga = harga_layanan;
+		cout<< "[SISTEM] Objek paket '"<<nama_paket<<" ' berhasil dibuat di memori."<<endl;	
+	}
+	
+	void tampilkaninformasi(){
+		cout<<"Paket: "<<nama_paket<<" | Harga: Rp "<<harga<<endl;
+	}
+};
+
+int main(){
+	cout<<"=== INSTANSIASI OBJEK OOP C++ ==="<<endl;
+	
+	layanandigital paket_A("canva pro 1 bulan", 35000 );
+	layanandigital paket_B("Youtube premium 3 bulan", 85000);
+	
+	cout<<"---------------------------------------------------"<<endl;
+	
+	paket_A.tampilkaninformasi();
+	paket_B.tampilkaninformasi();
+	
+	return 0;
+}
